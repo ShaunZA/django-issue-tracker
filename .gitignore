@@ -1,0 +1,20 @@
+# Created by https://www.gitignore.io/api/cloud9,database
+
+### Cloud9 ###
+# Cloud9 IDE - http://c9.io
+.c9revisions
+.c9
+
+### Database ###
+*.accdb
+*.db
+*.dbf
+*.mdb
+*.pdb
+*.sql
+*.sqlite3
+
+
+# End of https://www.gitignore.io/api/cloud9,database
+
+env.py

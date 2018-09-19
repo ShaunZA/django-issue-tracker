@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load pagination_tags %}
+{% load sorting %}
+{% block content %}
+
+{% auto_sort tickets %}
+<div class="row d-flex justify-content-between">
+    <h3>TICKETS:</h3>
+    <div class="btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sort By
+        </button>
+        <div class="dropdown-menu">
+        {% sort_link "Priority" "priority" %}
+        {% sort_link "Title" "title" %}
+        {% sort_link "Bug or Feature" "ticket_type" %}
+        {% sort_link "Author" "created_by" %}
+        {% sort_link "Date Added" "date_added" %}
+        </div>
+    </div>
+</div>
+<!-- Beginning of Ticket -->
+<div class="row list-group">
+    {% autopaginate tickets 10 %}
+    {% for ticket in tickets %}
+    <a href="{% url 'ticket' ticket.id %}" class="list-group-item list-group-item-action flex-column align-items-start" id="{{ ticket.id }}">
+    <div class="row d-flex w-100 justify-content-between">
+        <div class="rolly">
+            <h4>{{ ticket.title }}</h4>
+            {% if 'critical' in ticket.priority %}
+        <span class="badge badge-pill badge-danger">{{ ticket.priority }}</span>
+            {% if 'bug' in ticket.ticket_type %}
+            <i class="fas fa-bug"></i>
+            {% else %}
+            <i class="fas fa-file-medical"></i>
+            {% endif %}
+        {% elif 'major' in ticket.priority %}
+        <span class="badge badge-pill badge-warning ml-auto align-self-start">{{ ticket.priority }}</span>
+            {% if 'bug' in ticket.ticket_type %}
+            <i class="fas fa-bug"></i>
+            {% else %}
+            <i class="fas fa-file-medical"></i>
+            {% endif %}
+        {% elif 'medium' in ticket.priority %}
+        <span class="badge badge-pill badge-info ml-auto align-self-start">{{ ticket.priority }}</span>
+            {% if 'bug' in ticket.ticket_type %}
+            <i class="fas fa-bug"></i>
+            {% else %}
+            <i class="fas fa-file-medical"></i>
+            {% endif %}
+        {% elif 'minor' in ticket.priority %}
+        <span class="badge badge-pill badge-primary ml-auto align-self-start">{{ ticket.priority }}</span>
+            {% if 'bug' in ticket.ticket_type %}
+            <i class="fas fa-bug"></i>
+            {% else %}
+            <i class="fas fa-file-medical"></i>
+            {% endif %}
+        {% elif 'trivial' in ticket.priority %}
+        <span class="badge badge-pill badge-success ml-auto align-self-start">{{ ticket.priority }}</span>
+            {% if 'bug' in ticket.ticket_type %}
+            <i class="fas fa-bug"></i>
+            {% else %}
+            <i class="fas fa-file-medical"></i>
+            {% endif %}
+        {% endif %}
+        </div>
+        <div class="ball">
+            <span class="badge badge-primary badge-pill">14</span>
+            <small>Comments</small>
+        </div>
+    </div>
+    <div class="row">
+        <p class="ticket-description text-truncate p-2">{{ ticket.description }}</p>
+    </div>
+    <div class="row d-flex w-100 justify-content-between">
+        <p>Author: {{ ticket.created_by }}</p>
+        <p>Date Added: {{ ticket.date_added }}</p>
+    </div>
+    <div class="row">
+        
+    </div>
+    </a>
+    {% endfor %}
+<!-- End of Ticket -->
+{% paginate %}
+</div>
+
+{% endblock %}

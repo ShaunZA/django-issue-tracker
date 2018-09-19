@@ -1,14 +1,8 @@
-body {
-    font-family: Arial;
-    padding-top: 50px;
-}
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
 
-footer {
-    margin-top: 40px;
-    padding-top: 40px;
+body, html {
+    font-family: 'Montserrat', sans-serif;
     padding-bottom: 40px;
-    border-top: 1px solid #ededed;
-    color: #A9A9A9;
 }
 
 .icon-bar {
@@ -17,4 +11,41 @@ footer {
 
 .accountform {
     padding-top: 20px;
+}
+
+.alert {
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.main-content {
+    height: 100%;
+    max-width: 1024px;
+    margin-top: 30px;
+}
+
+.list-group-item {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 10px 20px 0px 30px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin-top: 40px;
+    border-top: 1px solid #ededed;
+    background-color: white;
+    color: #A9A9A9;
+}
+
+.footer-list {
+    display: flex;
+    list-style: none;
+}
+
+.footer-item {
+    padding-left: 10px;
 }

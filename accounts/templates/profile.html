@@ -1,5 +1,4 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>Success!</h2>
-    <p>You are logged in as {{ user.email }} </p>
+    <p>You are logged in as {{ user.username }} ({{ user.email }}) </p>
 {% endblock %}
