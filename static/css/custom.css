@@ -95,3 +95,7 @@ body, html {
     background-color: #3190ED;
     color: white;
 }
+
+#payment-form{
+    width: 100%;
+}

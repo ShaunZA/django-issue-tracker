@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', os.getenv('C9_HOSTNAME')]
+ALLOWED_HOSTS = [os.getenv('C9_HOSTNAME')]
 
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'accounts',
     'home',
     'tickets',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -137,13 +138,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+STATICFILES_LOCATION = 'static'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
+MEDIAFILES_LOCATION = 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# We need to override the default message storage, since cloud9 has a cookie bug
-# https://stackoverflow.com/a/34828308/493553
+STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE')
+STRIPE_SECRET = os.getenv('STRIPE_SECRET')
+
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
