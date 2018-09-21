@@ -18,3 +18,5 @@
 # End of https://www.gitignore.io/api/cloud9,database
 
 env.py
+*.pyc
+__pychache__/
