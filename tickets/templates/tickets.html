@@ -64,10 +64,12 @@
             {% endif %}
         {% endif %}
         </div>
+        {% if ticket.comments.count >= 1 %}
         <div class="ball">
             <span class="badge badge-primary badge-pill">{{ ticket.comments.count }}</span>
             <small>Comments</small>
         </div>
+        {% endif %}
     </div>
     <div class="row">
         <p class="ticket-description text-truncate p-2">{{ ticket.description }}</p>
