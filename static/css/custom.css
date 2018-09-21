@@ -96,6 +96,40 @@ body, html {
     color: white;
 }
 
-#payment-form{
-    width: 100%;
+.full-comment {
+    margin: 20px 0px 20px 20px;
+}
+
+.comment-btn {
+    max-width: 20%;
+    padding: 10px 0px 10px 0px;
+}
+
+.ticket-description {
+    padding-bottom: 40px;
+}
+
+.thumbnail{
+    height: 200px;
+    width: 200px;
+    overflow:hidden;
+    display: block;
+    }
+
+.modal-dialog{
+    position: relative;
+    display: table; /* <-- This makes the trick */
+    overflow-y: auto;    
+    overflow-x: auto;
+    width: auto;
+    min-width: 300px;   
+}
+
+.screenshot {
+    padding-bottom: 20px;
+}
+
+/* Fix for Bootstrap Modal inside list-group-item */
+.list-group-item, .list-group-item:hover { 
+    z-index: auto;
 }

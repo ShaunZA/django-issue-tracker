@@ -20,6 +20,8 @@ from tickets import urls as urls_tickets
 from search import urls as urls_search
 from tickets.views import all_tickets, one_ticket
 from accounts.views import index
+from django.conf import settings 
+from django.conf.urls.static import static 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,4 +29,4 @@ urlpatterns = [
     url(r'^accounts/', include(urls_accounts)),
     url(r'^tickets/', include(urls_tickets)),
     url(r'^search/', include(urls_search)),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,40 +1,79 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3>TICKET:</h3>
-
 <div class="list-group">
-
     {% for ticket in tickets %}
-    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" id="{{ ticket.id }}">
-    <div class="d-flex w-100 justify-content-between">
-        {% if 'bug' in ticket.ticket_type %}
-        <h5 class="mb-1"><i class="fas fa-bug"></i> {{ ticket.title }}</h5>
-        {% else %}
-        <h5 class="mb-1"><i class="fas fa-file-medical"></i> {{ ticket.title }}</h5>
+    <div class="list-group-item">
+        <div class="d-flex w-100 justify-content-between">
+            {% if 'bug' in ticket.ticket_type %}
+            <h3 class="mb-1 text-capitalize"><i class="fas fa-bug"></i> {{ ticket.title }}</h3>
+            {% else %}
+            <h3 class="mb-1 text-capitalize"><i class="fas fa-file-medical"></i> {{ ticket.title }}</h3>
+            {% endif %}
+        </div>
+        <div class="d-flex w-100 justify-content-between ticket-description">
+            <p class="mb-0 ticket-description p-2">{{ ticket.description|linebreaksbr }}</p>
+            {% if 'critical' in ticket.priority %}
+            <span class="badge badge-pill badge-danger ml-auto align-self-start">{{ ticket.priority }}</span>
+            {% elif 'major' in ticket.priority %}
+            <span class="badge badge-pill badge-warning ml-auto align-self-start">{{ ticket.priority }}</span>
+            {% elif 'medium' in ticket.priority %}
+            <span class="badge badge-pill badge-info ml-auto align-self-start">{{ ticket.priority }}</span>
+            {% elif 'minor' in ticket.priority %}
+            <span class="badge badge-pill badge-primary ml-auto align-self-start">{{ ticket.priority }}</span>
+            {% elif 'trivial' in ticket.priority %}
+            <span class="badge badge-pill badge-success ml-auto align-self-start">{{ ticket.priority }}</span>
+            {% endif %}
+        </div>
+        {% if ticket.screenshot %}
+        <hr>
+        <p>Screenshot:</p>
+        
+        <!-- Button trigger modal -->
+        <div class="screenshot">
+            <a  class="screenshot-link" data-toggle="modal" data-target="#exampleModal" href="#">
+                <img src="{{MEDIA_URL}}{{ ticket.screenshot }}" class="thumbnail">
+            </a>
+        </div>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <img class="img-responsive" src="{{MEDIA_URL}}{{ ticket.screenshot }}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endif %}
-        <div class="ball">
-            <span class="badge badge-primary badge-pill">14</span>
-            <small>Comments</small>
+        <div class="d-flex w-100 justify-content-between">
+            <p>Author: {{ ticket.created_by }}</p>
+            <p>Date Added: {{ ticket.date_added }}</p>
         </div>
     </div>
-    <div class="d-flex w-100 justify-content-between">
-        <p class="mb-1 ticket-description p-2">{{ ticket.description|linebreaksbr }}</p>
-        {% if 'critical' in ticket.priority %}
-        <span class="badge badge-pill badge-danger ml-auto align-self-start">{{ ticket.priority }}</span>
-        {% elif 'major' in ticket.priority %}
-        <span class="badge badge-pill badge-warning ml-auto align-self-start">{{ ticket.priority }}</span>
-        {% elif 'medium' in ticket.priority %}
-        <span class="badge badge-pill badge-info ml-auto align-self-start">{{ ticket.priority }}</span>
-        {% elif 'minor' in ticket.priority %}
-        <span class="badge badge-pill badge-primary ml-auto align-self-start">{{ ticket.priority }}</span>
-        {% elif 'trivial' in ticket.priority %}
-        <span class="badge badge-pill badge-success ml-auto align-self-start">{{ ticket.priority }}</span>
-        {% endif %}
-    </div>
-    </a>
-    {% endfor %}
-
 </div>
 
+<hr>
+<h3>COMMENTS:</h3>
+<div class="list-group">
+{% for comment in ticket.comments.all %}
+    <div class="list-group-item">
+        <div class="d-flex justify-content-between full-comment">
+            <blockquote class="blockquote">
+                <p class="mb-0 comment">{{ comment.text|linebreaksbr }}</p>
+                <footer class="blockquote-footer">{{ comment.author }}</footer>
+            </blockquote>
+            <div class="date">{{ comment.created_date }}</div>
+        </div>
+    </div>
+{% empty %}
+<p>No comments here yet :(</p>
+{% endfor %}
+<a class="btn btn-primary comment-btn text-truncate" href="{% url 'add_comment_to_ticket' ticket_id=ticket.id %}">Comment</a>
+</div>
+{% endfor %}
 {% endblock %}

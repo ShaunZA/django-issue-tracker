@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.contrib import messages
@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Ticket
-from .forms import TicketForm
+from .forms import TicketForm, CommentForm
 
 
 # Create your views here.
@@ -18,6 +18,7 @@ def all_tickets(request):
 def one_ticket(request, ticket_id):
     tickets = Ticket.objects.filter(id=ticket_id)
     return render(request, "ticket.html", {"tickets": tickets})
+    
     
 @login_required
 def create_ticket(request):
@@ -39,3 +40,18 @@ def create_ticket(request):
 
     return render(request, 'create.html', {'form': form})
     
+    
+def add_comment_to_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user.username
+            comment.created_date = timezone.now()
+            comment.ticket = ticket
+            comment.save()
+            return redirect('ticket', ticket_id=ticket.id)
+    else:
+        form = CommentForm()
+    return render(request, 'comments/add_comment_to_ticket.html', {'form': form})

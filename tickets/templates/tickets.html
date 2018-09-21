@@ -26,7 +26,7 @@
     <a href="{% url 'ticket' ticket.id %}" class="list-group-item list-group-item-action flex-column align-items-start" id="{{ ticket.id }}">
     <div class="row d-flex w-100 justify-content-between">
         <div class="rolly">
-            <h4>{{ ticket.title }}</h4>
+            <h4 class="text-capitalize">{{ ticket.title }}</h4>
             {% if 'critical' in ticket.priority %}
         <span class="badge badge-pill badge-danger">{{ ticket.priority }}</span>
             {% if 'bug' in ticket.ticket_type %}
@@ -65,7 +65,7 @@
         {% endif %}
         </div>
         <div class="ball">
-            <span class="badge badge-primary badge-pill">14</span>
+            <span class="badge badge-primary badge-pill">{{ ticket.comments.count }}</span>
             <small>Comments</small>
         </div>
     </div>
@@ -77,7 +77,6 @@
         <p>Date Added: {{ ticket.date_added }}</p>
     </div>
     <div class="row">
-        
     </div>
     </a>
     {% endfor %}

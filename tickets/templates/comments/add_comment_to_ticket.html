@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load bootstrap_tags %}
+
+{% block content %}
+    <h1>New comment</h1>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ form|as_bootstrap }}
+        <button type="submit" class="save btn btn-primary">Send</button>
+    </form>
+{% endblock %}
