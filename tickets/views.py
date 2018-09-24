@@ -67,7 +67,6 @@ def create_feature(request):
         form = TicketForm(data, request.POST or None)
 
     if request.method == 'POST':
-        print("POST WAS ACHIEVED!")
         # if form is valid - create ticket
         if form.is_valid():
             form = form.save(commit=False)
