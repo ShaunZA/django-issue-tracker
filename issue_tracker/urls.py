@@ -19,14 +19,14 @@ from accounts import urls as urls_accounts
 from tickets import urls as urls_tickets
 from search import urls as urls_search
 from tickets.views import all_tickets, one_ticket
-from accounts.views import index
+from home.views import index
 from django.conf import settings
 from payment.views import payment_form, checkout
 from django.conf.urls.static import static 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', all_tickets, name='index'),
+    url(r'^$', index, name='index'),
     url(r'^accounts/', include(urls_accounts)),
     url(r'^tickets/', include(urls_tickets)),
     url(r'^search/', include(urls_search)),

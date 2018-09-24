@@ -134,3 +134,6 @@ body, html {
     z-index: auto;
 }
 
+.createticketform label {
+    font-size: 1.2em;
+}
