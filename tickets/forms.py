@@ -6,7 +6,7 @@ from .models import Ticket, Comment
 class TicketForm(ModelForm):
     class Meta:
         model = Ticket
-        fields = ['title', 'description', 'priority', 'ticket_type', 'screenshot']
+        fields = ['title', 'description', 'priority', 'ticket_type']
 
 
 class CommentForm(ModelForm):

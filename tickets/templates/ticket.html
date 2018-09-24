@@ -25,31 +25,6 @@
             <span class="badge badge-pill badge-success ml-auto align-self-start">{{ ticket.priority }}</span>
             {% endif %}
         </div>
-        {% if ticket.screenshot %}
-        <hr>
-        <p>Screenshot:</p>
-        
-        <!-- Button trigger modal -->
-        <div class="screenshot">
-            <a  class="screenshot-link" data-toggle="modal" data-target="#exampleModal" href="#">
-                <img src="{{MEDIA_URL}}{{ ticket.screenshot }}" class="thumbnail">
-            </a>
-        </div>
-        
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <img class="img-responsive" src="{{MEDIA_URL}}{{ ticket.screenshot }}">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger closey mr-auto" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endif %}
         <div class="d-flex w-100 justify-content-between">
             <p>Author: {{ ticket.created_by }}</p>
             <p>Date Added: {{ ticket.date_added }}</p>
@@ -58,6 +33,7 @@
 </div>
 
 <hr>
+
 <h3>COMMENTS:</h3>
 <div class="list-group">
 {% for comment in ticket.comments.all %}

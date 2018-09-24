@@ -17,7 +17,6 @@ class Ticket(models.Model):
     description = models.TextField(blank=False)
     priority = models.CharField(max_length=8, choices=PRIORITY_CHOICES, default='trivial')
     ticket_type = models.CharField(max_length=7, choices=TYPE_CHOICES, default='bug')
-    screenshot = models.ImageField(upload_to='images/', default='images/none/no-img.jpg', blank=True)
     date_added = models.DateTimeField(default=timezone.now, blank=False, editable=False)
     created_by = models.CharField(max_length=32, default=' ', blank=False, editable=False)
 

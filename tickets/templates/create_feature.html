@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap_tags %}
+{% load static from staticfiles %}
+
+{% block content %}
+    <form method="post" action="{% url 'create_feature' %}" class="createticketform" enctype="multipart/form-data">
+        <fieldset class="form-group">
+            <legend>Create a new ticket</legend>
+            {% csrf_token %}
+            {{  form|as_bootstrap }}
+            <button type="submit" class="btn btn-primary">Create</button>
+        </fieldset>
+    </form>
+{% endblock %}

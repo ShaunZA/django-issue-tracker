@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load bootstrap_tags %}
+{% load static from staticfiles %}
+
+{% block content %}
+<div class="d-flex flex-column justify-content-center">
+<h3 class="p-2">Please Click The Button Below To Continue Payment</h3>
+<p class="p-2">By clicking the button below, you will be presented with a secure payment portal provided by <a target="_blank" href="https://stripe.com/">Stripe</a>.
+Once the payment of €30 has been completed, you will be redirected back to the 'Create Ticket' page to submit your feature request.</p>
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+    <form class="p-2" id="payment-form">
+        {% csrf_token %}
+        <button class="btn btn-primary" id="customButton">Purchase</button>
+    </form>
+</div>
+
+<script>
+var handler = StripeCheckout.configure({
+ key: "pk_test_DwsyZTSMPGgLNjtvb2yTYnjJ",
+  locale: 'auto',
+  image: "{{ MEDIA_URL }}logo.png",
+  name: "Unicorn Attractor",
+  description: "€30 for one new Feature",
+  panelLabel: "Click to make payment",
+  allowRememberMe: false,
+
+  token: function(token) {
+    // Prevent user from leaving page
+    window.onbeforeunload = function() {
+            return "";
+        }
+    // Create a form to submit the results to the backend
+    var form = document.getElementById("payment-form");
+    form.setAttribute('method', "POST");
+    form.setAttribute('action', "/checkout");
+    // Add the token ID as a hidden field
+    var inputToken = document.createElement("input");
+    inputToken.setAttribute('type', "hidden");
+    inputToken.setAttribute('name', "stripeToken");
+    inputToken.setAttribute('value', token.id);
+    form.appendChild(inputToken);
+    // Add the email as a hidden field
+    var inputEmail = document.createElement("input");
+    inputEmail.setAttribute('type', "hidden");
+    inputEmail.setAttribute('name', "stripeEmail");
+    inputEmail.setAttribute('value', token.email);
+    form.appendChild(inputEmail);
+        // Submit the form and redirect
+    document.body.appendChild(form);
+    document.forms["payment-form"].submit()
+  }
+
+});
+
+document.getElementById('customButton').addEventListener('click', function(e) {
+  handler.open();
+  e.preventDefault();
+});
+
+// Close Checkout on page navigation:
+window.addEventListener('popstate', function() {
+  handler.close();
+  
+});
+</script>
+{% endblock %}
+
+
+
+
