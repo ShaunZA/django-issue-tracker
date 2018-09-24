@@ -72,6 +72,11 @@ The following are some examples of the tests.
 ## Deployment
 
 The project is deployed on Heroku, you can reach it by going to this [link](https://unicorn-issue-tracker.herokuapp.com/)
+
+To access Super User for testing, use the following credentials:
+Username: admin
+Password: p4ssw0rd
+
 The following Config Vars are required in order to run the app on Heroku
 - DATABASE_URL (for the database, you can get this by creating a new add-on in Heroku for a Postgres database)
 - SECRET_KEY (Django's secret key)
